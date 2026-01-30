@@ -25,6 +25,9 @@ jobs:
         os: [ubuntu-latest]
         python-version: [ "3.12" ]
     steps:
+      - name: Fix AppArmor user namespace issue
+        run: sudo apparmor_parser -R /etc/apparmor.d/unprivileged_userns
+        
       - uses: actions/checkout@v6
         with:
           repository: 'yoctoproject/poky'
