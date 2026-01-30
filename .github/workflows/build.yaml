@@ -1,0 +1,4 @@
+https://github.com/yoctoproject/poky/tree/zeus-22.0.4
+cd poky
+source  oe-init-build-env buid-qemuarm
+bitbake core-image-minimal-initramfs
