@@ -38,11 +38,10 @@ jobs:
       # - uses: LizardByte/setup-python-action@master
       #   with:
       #     python-version: '2.7'
-    
       - run: |
           sudo apt update && \
           sudo apt install chrpath diffstat
-        
+          
       - working-directory: 'poky'
         run: |
           source oe-init-build-env buid-qemuarm && \
@@ -51,8 +50,7 @@ jobs:
       - working-directory: 'poky'
         run: |
           source oe-init-build-env runqemu qemuarm
-      
-
+          
 # https://github.com/yoctoproject/poky/tree/
 # cd poky
 # source oe-init-build-env buid-qemuarm
