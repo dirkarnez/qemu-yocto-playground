@@ -1,5 +1,50 @@
-https://github.com/yoctoproject/poky/tree/zeus-22.0.4
-cd poky
-source oe-init-build-env buid-qemuarm
-bitbake core-image-minimal-initramfs
-source oe-init-build-env runqemu qemuarm
+name: Build
+
+on:
+  push:
+    # # Sequence of patterns matched against refs/tags
+    # tags:
+    #   - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+    contents: write
+  
+defaults:
+  run:
+    shell: bash
+    
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          repository: 'yoctoproject/poky'
+          path: 'poky'
+          ref: 'zeus-22.0.4'
+      
+      - working-directory: 'poky'
+        run: |
+          source oe-init-build-env buid-qemuarm
+          
+      - working-directory: 'poky'
+        run: |
+          bitbake core-image-minimal-initramfs
+          
+      - working-directory: 'poky'
+        run: |
+          source oe-init-build-env runqemu qemuarm
+      
+
+# https://github.com/yoctoproject/poky/tree/
+# cd poky
+# source oe-init-build-env buid-qemuarm
+# bitbake core-image-minimal-initramfs
+# source oe-init-build-env runqemu qemuarm
