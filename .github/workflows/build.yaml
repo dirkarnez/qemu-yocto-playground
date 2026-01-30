@@ -23,7 +23,6 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
-        python-version: [ "2.7.18" ] 
     steps:
       - uses: actions/checkout@v6
         with:
@@ -31,11 +30,14 @@ jobs:
           path: 'poky'
           ref: 'zeus-22.0.4'
           
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-          
+      # - name: Set up Python ${{ matrix.python-version }}
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: ${{ matrix.python-version }}
+      - run: |
+          sudo apt update && \
+          sudo apt install python2.7 
+        
       - working-directory: 'poky'
         run: |
           source oe-init-build-env buid-qemuarm && \
