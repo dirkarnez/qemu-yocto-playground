@@ -22,21 +22,22 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ ubuntu-latest ]
+        os: [ubuntu-latest]
+        python-version: [ "3.12" ]
     steps:
       - uses: actions/checkout@v6
         with:
           repository: 'yoctoproject/poky'
           path: 'poky'
-          ref: 'zeus-22.0.4'
+          ref: 'walnascar-5.2.4'
           
-      # - name: Set up Python ${{ matrix.python-version }}
-      #   uses: actions/setup-python@v4
-      #   with:
-      #     python-version: ${{ matrix.python-version }}
-      - uses: LizardByte/setup-python-action@master
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
         with:
-          python-version: '2.7'
+          python-version: ${{ matrix.python-version }}
+      # - uses: LizardByte/setup-python-action@master
+      #   with:
+      #     python-version: '2.7'
     
       # - run: |
       #     sudo apt update && \
