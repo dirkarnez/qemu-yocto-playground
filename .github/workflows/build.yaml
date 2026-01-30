@@ -32,10 +32,7 @@ jobs:
       
       - working-directory: 'poky'
         run: |
-          source oe-init-build-env buid-qemuarm
-          
-      - working-directory: 'poky'
-        run: |
+          source oe-init-build-env buid-qemuarm && \
           bitbake core-image-minimal-initramfs
           
       - working-directory: 'poky'
