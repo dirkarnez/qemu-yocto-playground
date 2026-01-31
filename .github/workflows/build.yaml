@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    # # Sequence of patterns matched against refs/tags
-    # tags:
-    #   - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -48,12 +48,30 @@ jobs:
       - working-directory: 'poky'
         run: |
           source oe-init-build-env buid-qemuarm && \
-          bitbake core-image-minimal-initramfs
-          
+          bitbake core-image-minimal-initramfs && \
+          runqemu qemuarm -nographic
+
       - working-directory: 'poky'
         run: |
-          source oe-init-build-env runqemu qemuarm
+          ls -R
           
+      - working-directory: 'poky/build'
+        run: |
+          ls -R
+          
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          directory: 'poky/build'
+          filename: "${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.os }}.zip"
+          
+      - name: Release prebuilt
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "poky/build/${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.os }}.zip"
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
 # https://github.com/yoctoproject/poky/tree/
 # cd poky
 # source oe-init-build-env buid-qemuarm
