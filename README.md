@@ -8,3 +8,4 @@ qemu-yocto-playground
 
 ### Manual
 - [Yocto Project Reference Manual — The Yocto Project ® 5.3.999 documentation](https://docs.yoctoproject.org/ref-manual/index.html)
+- [40 Using the Quick EMUlator (QEMU) — The Yocto Project ® 5.3.999 documentation](https://docs.yoctoproject.org/dev-manual/qemu.html)
