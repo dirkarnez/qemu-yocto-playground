@@ -1,6 +1,6 @@
 qemu-yocto-playground
 =====================
-[yoctoproject/poky at zeus-22.0.4](https://github.com/yoctoproject/poky)
+[yoctoproject/poky: Mirror of https://git.yoctoproject.org/poky/.](https://github.com/yoctoproject/poky)
 
 ### Tags
 - [poky - Poky Build Tool and Metadata](https://git.yoctoproject.org/poky/refs/tags)
